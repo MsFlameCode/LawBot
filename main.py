@@ -193,7 +193,7 @@ async def process_start_command(message: types.Message):
 @dp.message_handler()
 async def echo_message(message: types.Message):
     const.INPUT_DATA = message.text
-    msg = "Нажмите кнопку \" 📘запись к юристу/эксперту \" "
+    msg = "Информация от пользователя: %s" % const.INPUT_DATA
     await bot.send_message(message.chat.id, msg, reply_markup=keyboard.create_keyboard_topic())
 
 if __name__ == '__main__':
