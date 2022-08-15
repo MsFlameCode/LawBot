@@ -77,7 +77,10 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
         const.CONST_TOPIC = "-"
     msg = "Выбрана тема: %s" % const.CONST_TOPIC
     await bot.answer_callback_query(callback_query.id)
-    await bot.send_message(callback_query.from_user.id, msg, reply_markup=keyboard.create_keyboard_service())
+    if code == 1:
+        await bot.send_message(callback_query.from_user.id, msg, reply_markup=keyboard.create_keyboard_for_real_estate())
+    else:
+        await bot.send_message(callback_query.from_user.id, msg, reply_markup=keyboard.create_keyboard_service())
 
 
 # обработка услуги
@@ -104,6 +107,20 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
         const.CONST_SER = "составление документа"
     elif code == 3:
         const.CONST_SER = "представление интересов в суде"
+    elif code == 4:
+        const.CONST_SER = "'составить договор"
+    elif code == 5:
+        const.CONST_SER = "узаконить/согласовать перепланировку"
+    elif code == 6:
+        const.CONST_SER = "получить разрешение на строительство"
+    elif code == 7:
+        const.CONST_SER = "уменьшить кадастровую стоимость объекта/земли"
+    elif code == 8:
+        const.CONST_SER = "участие юриста/эксперта при приемке квартиры от застройщика"
+    elif code == 9:
+        const.CONST_SER = "оформить претензию к застройщику  о неустойке"
+    elif code == 10:
+        const.CONST_SER = "участие юриста/эксперта при приемке квартиры от застройщика"
     else:
         const.CONST_SER = "-"
     msg = "Выбрана категория: %s" % const.CONST_SER
@@ -166,7 +183,10 @@ async def process_start_command(message: types.Message):
         else:
             await bot.send_message(const.CONST_ID, "Ваш запрос пуст! Введите тему запроса, формат услуги и \
                                                                                           город оказания услуги")
-            return
+    msg = "Спасибо, поиск профессионального юриста/эксперта узконаправленного профиля для решения " \
+          "Вашего вопроса осуществлен. Какое время для связи Вам удобно? Как срочно нужно решить вопрос?"
+    await bot.send_message(message.from_user.id, msg, reply_markup=keyboard.create_inline_board_service_loc(),
+                           disable_web_page_preview=True)
     const.INPUT_DATA = ""
 
 
