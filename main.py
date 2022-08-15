@@ -185,7 +185,7 @@ async def process_start_command(message: types.Message):
                                                                                           город оказания услуги")
     msg = "Спасибо, поиск профессионального юриста/эксперта узконаправленного профиля для решения " \
           "Вашего вопроса осуществлен. Какое время для связи Вам удобно? Как срочно нужно решить вопрос?"
-    await bot.send_message(message.from_user.id, msg, reply_markup=keyboard.create_inline_board_service_loc(),
+    await bot.send_message(message.from_user.id, msg, reply_markup=keyboard.create_keyboard_topic(),
                            disable_web_page_preview=True)
     const.INPUT_DATA = ""
 
