@@ -194,7 +194,7 @@ async def process_start_command(message: types.Message):
 async def echo_message(message: types.Message):
     const.INPUT_DATA = message.text
     msg = "Информация от пользователя: %s" % const.INPUT_DATA
-    await bot.send_message(message.chat.id, msg, reply_markup=keyboard.create_keyboard_topic())
+    await bot.send_message(const.CONST_ID, msg, reply_markup=keyboard.create_keyboard_topic())
 
 if __name__ == '__main__':
     executor.start_polling(dp)
