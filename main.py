@@ -173,12 +173,14 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
 async def process_start_command(message: types.Message):
     if len(const.INPUT_DATA) == 0 and len(const.CONST_TOPIC) != 0 and len(const.CONST_SER) != 0 and \
             len(const.CONST_LOC) != 0:
-        msg = "Тема запроса: %s \n Тип услуги: %s \n Населенный пункт: %s" % (const.CONST_TOPIC, const.CONST_SER,
-                                                                                  const.CONST_LOC)
+        msg = "Пользователь: %s \n Тема запроса: %s \n Тип услуги: %s \n Населенный пункт: %s" % (message.from_user.username,
+                                                                                               const.CONST_TOPIC,
+                                                                                               const.CONST_SER,
+                                                                                               const.CONST_LOC)
         await bot.send_message(const.CONST_ID, msg, reply_markup=keyboard.create_keyboard_topic())
     else:
         if len(const.INPUT_DATA) != 0:
-            msg = "Ваш запрос: %s" % const.INPUT_DATA
+            msg = "Пользователь: %s \n Запрос: %s" % (message.from_user.username, const.INPUT_DATA)
             await bot.send_message(const.CONST_ID, msg, reply_markup=keyboard.create_keyboard_topic())
         else:
             await bot.send_message(const.CONST_ID, "Ваш запрос пуст! Введите тему запроса, формат услуги и \
@@ -193,7 +195,7 @@ async def process_start_command(message: types.Message):
 @dp.message_handler()
 async def echo_message(message: types.Message):
     const.INPUT_DATA = message.text
-    msg = "Информация от пользователя: %s" % const.INPUT_DATA
+    msg = "Информация от пользователя %s: %s" % (message.from_user.username, const.INPUT_DATA)
     await bot.send_message(const.CONST_ID, msg, reply_markup=keyboard.create_keyboard_topic())
 
 if __name__ == '__main__':
